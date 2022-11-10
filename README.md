@@ -1,3 +1,3 @@
 # back-cas-lab
 
-python -m django --version
+pip install -r requirements.txt
