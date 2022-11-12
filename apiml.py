@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 origins = [
-    "https://susanelizabetth.github.io/front-cas-nuxt/*",
+    "https://susanelizabetth.github.io",
     "http://localhost:3000",
 ]
 
