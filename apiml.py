@@ -5,14 +5,12 @@ from functools import wraps
 
 import pandas as pd
 from fastapi import FastAPI
-from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from cachetools import cached, TTLCache
 
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
 origins = [
     "https://susanelizabetth.github.io",
     "http://localhost:3000",
