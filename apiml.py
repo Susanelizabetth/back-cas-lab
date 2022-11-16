@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
+import json
 
 app = FastAPI()
 origins = [
@@ -47,3 +48,10 @@ async def scoring_endpoint(item: List[ScoringItem]):
     yhat = model.predict(df)
 
     return {"prediction": yhat.tolist()}
+
+
+@app.get('/')
+async def get_data_csv():
+    df = pd.read_csv('data.csv')
+    df.fillna(0)
+    return json.loads(df.to_json(orient='records'))
