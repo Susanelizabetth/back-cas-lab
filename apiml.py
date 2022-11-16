@@ -5,10 +5,7 @@ from functools import wraps
 
 import pandas as pd
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel
-from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from cachetools import cached, TTLCache
@@ -30,31 +27,31 @@ app.add_middleware(
 )
 
 
-class ScoringItem(BaseModel):
-    albumina: float
-    globulos_blancos: int
-    creatinina: float
-    hipertension: int
-    diabetes_mellitus: float
+# class ScoringItem(BaseModel):
+#     albumina: float
+#     globulos_blancos: int
+#     creatinina: float
+#     hipertension: int
+#     diabetes_mellitus: float
 
 
-class ScoringItems(BaseModel):
-    List[ScoringItem]
+# class ScoringItems(BaseModel):
+#     List[ScoringItem]
 
 
-with open('model.pkl', 'rb') as f:
-    model = pickle.load(f)
+# with open('model.pkl', 'rb') as f:
+#     model = pickle.load(f)
 
 
-@app.post('/')
-async def scoring_endpoint(item: List[ScoringItem]):
-    data = []
-    for i in item:
-        data.append(i.dict())
-    df = pd.DataFrame(data)
-    yhat = model.predict(df)
+# @app.post('/')
+# async def scoring_endpoint(item: List[ScoringItem]):
+#     data = []
+#     for i in item:
+#         data.append(i.dict())
+#     df = pd.DataFrame(data)
+#     yhat = model.predict(df)
 
-    return {"prediction": yhat.tolist()}
+#     return {"prediction": yhat.tolist()}
 
 
 @cached(cache=TTLCache(maxsize=1, ttl=60*60*48))
